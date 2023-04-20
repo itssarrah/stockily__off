@@ -204,3 +204,9 @@ input[type="radio"] {
   border: 2px solid #fdc500;
   transition: all 0.3s ease;
 }
+
+select {
+  cursor: pointer;
+  font-size: 20px;
+  font-family: "Outfit";
+}
