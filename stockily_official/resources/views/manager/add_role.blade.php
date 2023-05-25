@@ -66,10 +66,9 @@
       </div>
       <div class="chip"></div>
       <div class="left__btns">
-        <div class="nav__btn nav__btn--2"><a href="inprocess_page">Continue</a></div>
-        <div class="nav__btn nav__btn--2"><a href="admin/index">back</a></div>
+        <div class="nav__btn nav__btn--2"><a href="admin/index">Continue</a></div>
         <h3 class="btn--2">
-            You already have a DataBase?  <a href="admin/index"><span>Click Here !</span></a> 
+            You already have a DataBase?  <a href="#"><span>Click Here !</span></a> 
             </h3>
       </div>
     </div>

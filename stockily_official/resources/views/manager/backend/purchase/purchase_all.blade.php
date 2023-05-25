@@ -8,7 +8,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                                    <h4 class="mb-sm-0">Purchase All</h4>
+                                    <h4 class="mb-sm-0">track your stock products</h4>
 
 
                                 </div>
@@ -38,11 +38,16 @@
                                                 <th>Action</th>>
                                             </tr>
                                             </thead>
-        
+                                            <?php 
+                                            use Illuminate\Support\Facades\Auth;
+                                            $user_id=Auth::user()->id;
+                                            ?>
         
                                             <tbody>
                                                 @php($i = 1)
                                                 @foreach($allData as $key => $item)
+                                            @if ($item->created_by===$user_id) 
+                                            
                                             <tr>
                                                 <td>{{$key + 1}}</td>
                                                 <td>{{ $item->purchase_no }}</td>
@@ -64,6 +69,7 @@
                                                 @endif
                                                 </td>
                                             </tr>
+                                            @endif
                                                 @endforeach
                                             </tbody>
                                         </table>

@@ -141,7 +141,7 @@ html {
 
     display: flex;
     flex-direction: column;
-    gap: 8%;
+    gap: 5%;
 }
 
 .main__left h1 {

@@ -82,9 +82,6 @@
             <button name="continue_comp" type="submit" class="nav__btn nav__btn--2">
                 Continue
             </button>
-            <h3 class="btn--2">
-            You already have a DataBase?  <a href="admin/index"><span>Click Here !</span></a> 
-            </h3>
         </div>
     </form>
     </div>

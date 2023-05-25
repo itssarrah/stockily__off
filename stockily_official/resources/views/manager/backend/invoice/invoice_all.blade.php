@@ -36,10 +36,14 @@
                                             </tr>
                                             </thead>
         
-        
+                                            <?php 
+                                            use Illuminate\Support\Facades\Auth;
+                                            $user_id=Auth::user()->id;
+                                            ?>
                                             <tbody>
                                                 @php($i = 1)
                                                 @foreach($allData as $key => $item)
+                                            @if ($item->created_by===$user_id)   
                                             <tr>
                                                 <td>{{$key + 1}}</td>
                                                 <td> {{ $item['payment']['customer']['name'] }}</td>
@@ -47,8 +51,8 @@
                                                 <td>{{ date('d-m-Y', strtotime($item->date)) }}</td>
                                                 <td>{{ $item->description }}</td>
                                                 <td> {{ $item['payment']['total_amount'] }}</td>
-                                            
                                             </tr>
+                                            @endif
                                                 @endforeach
                                             </tbody>
                                         </table>
