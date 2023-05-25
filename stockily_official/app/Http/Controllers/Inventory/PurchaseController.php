@@ -7,8 +7,6 @@ use App\Models\Supplier;
 use App\Models\Unit;
 use App\Models\Purchase;
 use Illuminate\Support\Carbon;
-use Auth;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 

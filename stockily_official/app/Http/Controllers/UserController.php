@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -17,7 +17,34 @@ public function create(){
 }
 
 //create  a new user 
+public function changePassword() {
+        
+    return view('manager.admin.admin_change_password');
+}
 
+public function updatePassword(Request $request) {
+
+    $request->validate([
+        'oldpassword' => 'required',
+        'newpassword' => 'required',
+        'confirm_password' => 'required|same:newpassword'
+    ]);
+
+    $hashPassword = Auth::user()->password;
+    if(Hash::check($request->oldpassword, $hashPassword)){
+        $user = User::find(Auth::id());
+        $user->password = bcrypt($request->newpassword);
+        $user->save();
+
+        session()->flash('message', 'password Updated Successfully');
+
+        return redirect()->back();
+    } else {
+        session()->flash('message', 'Old Password not right');
+
+        return redirect()->back();
+    }
+}
 public function store(Request $request){
     $formFields = $request->validate([
             'name' => ['required', 'min:3'],

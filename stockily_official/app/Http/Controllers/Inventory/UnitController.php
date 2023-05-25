@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Inventory;
 
 
 use App\Models\Unit;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
@@ -21,18 +22,24 @@ class UnitController extends Controller
     }
 
     public function UnitStore(Request $request){
+    $user = Auth::user();
+    if ($user === null) {
+    return view('/users/login')->with('message', 'You need to be logged in.');
+    }
+    else{
     Unit::insert(
         [
             'name'=>$request->name,
-            'created_by'=>request()->user()->id,  //i think this one will be modified(it means in that column we will store the current user id on it) 
+            'created_by'=>$user->id,  //i think this one will be modified(it means in that column we will store the current user id on it) 
             'created_at'=> Carbon::now(), //insert the current time 
         ]);
         $notification = array(
-            'message' => 'Unit added Successfully', 
+            'message' => 'location added Successfully', 
             'alert-type' => 'success'
         );
                 return redirect()->route('unit.all')->with($notification);
-        }  //end method 
+    }
+}  //end method 
 
     public function UnitEdit($id){
         $unit=Unit::findOrFail($id); //get the requested id 
@@ -40,27 +47,46 @@ class UnitController extends Controller
     } //end method 
 
     public function UnitUpdate(Request $request){
+        $user = Auth::user();
+    if ($user === null) {
+    return view('/users/login')->with('message', 'You need to be logged in.');
+    }
+    else{
         $unit_id=$request->id; //get the  id
         Unit::findOrFail($unit_id)->update(
         [
             'name'=>$request->name,
-            'updated_by'=>request()->user()->id,  //i think this one will be modified(it means in that column we will store the current user id on it) 
+            'updated_by'=>$user->id,  //i think this one will be modified(it means in that column we will store the current user id on it) 
             'updated_at'=> Carbon::now(), //insert the current time 
         ]);
         $notification = array(
-            'message' => 'Unit updated Successfully', 
+            'message' => 'location updated Successfully', 
             'alert-type' => 'success'
         );
                 return redirect()->route('unit.all')->with($notification);
+    }
     }//end method 
 
       public function UnitDelete($id){
         Unit::findOrFail($id)->delete();
     
     $notification = array(
-            'message' => 'Unit deleted Successfully', 
+            'message' => 'location deleted Successfully', 
             'alert-type' => 'success'
         );
                 return redirect()->route('unit.all')->with($notification);
+    }
+    public function displayProducts($id)
+    {
+        $unit=Unit::findOrFail($id);
+        // Get the unit ID from the user.
+    // Get the products from the database that are related to the unit ID.
+    $products = Product::where('unit_id', $unit)->get();
+
+    // Print the products.
+    foreach ($products as $product) {
+        echo $product->name . ' - ' .'<br>';
+    }
+        return view('manager.backend.unit.unit_display',compact('unit'));
     }
 }

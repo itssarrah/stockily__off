@@ -61,12 +61,12 @@
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="ri-mail-send-line"></i>
-                        <span>Manage Purchase</span>
+                        <span>Manage your sources</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{route('purchase.all')}}">All Purchase</a></li>
-                        <li><a href="{{route('purchase.pending')}}">Approved Purchase</a></li>
-                        <li><a href="{{route('daily.purchase.report')}}">Daily Purchase Report</a></li>
+                        <li><a href="{{route('purchase.all')}}">All sources</a></li>
+                        <li><a href="{{route('purchase.pending')}}">Approved sources</a></li>
+                        <li><a href="{{route('daily.purchase.report')}}">Daily sources Report</a></li>
                     </ul>
                 </li>
                 <li>
@@ -81,6 +81,17 @@
                         <li><a href="{{route('daily.invoice.report')}}">Daily Invoice Reportt</a></li>
                     </ul>
                 </li>
+                <li class="menu-title">stock</li>
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="ri-account-circle-line"></i>
+                                <span>Manage Stock</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{{ route('stock.report') }}">Stock Report</a></li>
+                                    <li><a href="{{ route('stock.supplier.wise') }}">Supplier / Product Wise</a></li>
+                                </ul>
+                    </li>
 
                
 

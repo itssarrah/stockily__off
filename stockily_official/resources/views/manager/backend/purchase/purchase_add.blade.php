@@ -1,7 +1,8 @@
 @extends('manager.admin.admin_master')
 @section('admin')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
 <div class="page-content">
 <div class="container-fluid">
 
@@ -56,7 +57,7 @@
                 <div class="md-3">
                     <label for="example-text-input" class="form-label">Product Name </label>
                     <select name="product_id" id="product_id" class="form-select select2" aria-label="Default select example">
-                    <option selected="">Open this select menu</opti    on>
+                    <option selected="">Open this select menu</option>
 
                     </select>
                 </div>
@@ -67,6 +68,7 @@
                 <div class="md-3">
                     <label for="example-text-input" class="form-label" style="margin-top:43px;">  </label>
                     <i class="btn btn-secondary btn-rounded waves-effect waves-light fas fa-plus-circle addeventmore"> Add More</i>
+                    <!--<button onclick=""></button>!-->
                 </div>
             </div>
 

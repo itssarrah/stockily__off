@@ -12,6 +12,7 @@ use App\Http\Controllers\Inventory\CategoryController;
 use App\Http\Controllers\Inventory\PurchaseController;
 use App\Http\Controllers\Inventory\DefaultController;
 use App\Http\Controllers\Inventory\InvoiceController;
+use App\Http\Controllers\Inventory\StockController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -138,6 +139,7 @@ Route::controller(UnitController::class)->group(function () {
     Route::get('/unit/edit/{id}', 'UnitEdit')->name('unit.edit');
     Route::post('/unit/update', 'UnitUpdate')->name('unit.update');
     Route::get('/unit/delete/{id}', 'UnitDelete')->name('unit.delete');
+    Route::get('/unit/display/{unit}', 'displayProducts')->name('unit.display');
 });
 
 
@@ -184,4 +186,12 @@ Route::controller(InvoiceController::class)->group(function(){
     Route::get('/daily/invoice/report', 'dailyInvoiceReport')->name('daily.invoice.report');
     Route::get('/daily/invoice/pdf', 'dailyInvoicePdf')->name('daily.invoice.pdf');
     Route::post('/invoice/store', 'invoiceStore')->name('invoice.store');
+});
+//the stock 
+Route::controller(StockController::class)->group(function(){
+    Route::get('/stock/report', 'stockReport')->name('stock.report');
+    Route::get('/stock/report/pdf', 'stockReportPdf')->name('stock.report.pdf');
+    Route::get('/stock/supplier/wise', 'stockSupplierWise')->name('stock.supplier.wise');
+    Route::get('/supplier/wise/pdf', 'supplierWisePdf')->name('supplier.wise.pdf');
+    Route::get('/product/wise/pdf', 'productWisePdf')->name('product.wise.pdf');
 });

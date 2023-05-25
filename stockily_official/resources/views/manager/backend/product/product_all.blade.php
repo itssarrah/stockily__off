@@ -39,11 +39,14 @@
                             <th>Action</th>
                             
                         </thead>
+                        <?php 
+                        use Illuminate\Support\Facades\Auth;
+                        $user_id=Auth::user()->id;
+                        ?>
 
-
-                        <tbody>
-                        	
+                        <tbody>	
                         	@foreach($product as $key => $item)
+                        @if ($item->created_by===$user_id)
                         <tr>
                             <td> {{ $key+1}} </td>
                             <td> {{ $item->name }} </td>
@@ -59,6 +62,7 @@
                             </td>
                            
                         </tr>
+                        @endif
                         @endforeach
                         
                         </tbody>

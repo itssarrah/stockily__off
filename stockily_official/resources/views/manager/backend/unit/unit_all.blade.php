@@ -36,22 +36,33 @@
                             
                         </thead>
 
-
+                        <?php 
+                        use Illuminate\Support\Facades\Auth;
+                        $user_id=Auth::user()->id;
+                        ?>
                         <tbody>
                         	@foreach($units as $key => $item)
+                            
+                        @if ($item->created_by===$user_id)
                         <tr>
                             <td> {{ $key+1}} </td>
                             <td> {{ $item->name }} </td>
               
                             <td>
+    <!--buttons !-->
+    <a href="{{route('unit.display',$item->id)}}" class="btn btn-success sm" title="display Data" id="display">  <i class="fas fa-clipboard"></i> </a>
    <a href="{{route('unit.edit',$item->id)}}" class="btn btn-info sm" title="Edit Data">  <i class="fas fa-edit"></i> </a>
 
-    <a href="{{route('unit.delete',$item->id)}}" class="btn btn-danger sm" title="Delete Data" id="delete">  <i class="fas fa-trash-alt"></i> </a>
+    <a href="{{route('unit.delete',$item->id)}}" class="btn btn-danger sm" title="Delete products" id="delete">  <i class="fas fa-trash-alt"></i> </a>
+    
 
                             </td>
                            
                         </tr>
+                        @endif
                         @endforeach
+
+                        
                         
                         </tbody>
                     </table>
@@ -64,7 +75,12 @@
                      
                         
                     </div> <!-- container-fluid -->
-                </div>
- 
+                      
+                      
+                      
+                      
+                      
+</div>
 
+                  
 @endsection

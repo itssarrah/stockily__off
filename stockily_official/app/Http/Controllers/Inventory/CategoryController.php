@@ -21,10 +21,15 @@ class CategoryController extends Controller
     }
 
     public function CategoryStore(Request $request){
+        $user = Auth::user();
+        if ($user === null) {
+        return view('/users/login')->with('message', 'You need to be logged in.');
+        }
+    else{
     Category::insert(
         [
             'name'=>$request->name,
-            'created_by'=>Auth::user()->id,  //i think this one will be modified(it means in that column we will store the current user id on it) 
+            'created_by'=>$user->id, 
             'created_at'=> Carbon::now(), //insert the current time 
         ]);
         $notification = array(
@@ -32,7 +37,8 @@ class CategoryController extends Controller
             'alert-type' => 'success'
         );
                 return redirect()->route('category.all')->with($notification);
-        }  //end method 
+    }
+}  //end method 
 
     public function CategoryEdit($id){
         $category=Category::findOrFail($id); //get the requested id 
@@ -40,11 +46,15 @@ class CategoryController extends Controller
     } //end method 
 
     public function CategoryUpdate(Request $request){
+        $user = Auth::user();
+        if ($user === null) {
+        return view('/users/login')->with('message', 'You need to be logged in.');
+        }
         $category_id=$request->id; //get the  id
         Category::findOrFail($category_id)->update(
         [
             'name'=>$request->name,
-            'updated_by'=>Auth::user()->id,  //i think this one will be modified(it means in that column we will store the current user id on it) 
+            'updated_by'=>$user->id,  //i think this one will be modified(it means in that column we will store the current user id on it) 
             'updated_at'=> Carbon::now(), //insert the current time 
         ]);
         $notification = array(

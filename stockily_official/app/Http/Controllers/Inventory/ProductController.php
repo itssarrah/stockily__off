@@ -28,24 +28,29 @@ class ProductController extends Controller
     }//end method 
 
     public function ProductStore(Request $request){
+        $user = Auth::user();
+        if ($user === null) {
+        return view('/users/login')->with('message', 'You need to be logged in.');
+        }
+        else{
         Product::insert(
-            [
-                'name'=>$request->name,
-                'supplier_id'=>$request->supplier_id,
-                'unit_id'=>$request->unit_id,
-                'category_id'=>$request->category_id,
-                'quantity'=>'0',
-                'created_by'=>Auth::user()->id,
-                'created_at'=> Carbon::now(),
-            ]
-            );
-    
-     $notification = array(
-            'message' => 'Product added Successfully', 
-            'alert-type' => 'success'
-        );
-                return redirect()->route('product.all')->with($notification);
-        }  //end method 
+                    [
+                        'name'=>$request->name,
+                        'supplier_id'=>$request->supplier_id,
+                        'unit_id'=>$request->unit_id,
+                        'category_id'=>$request->category_id,
+                        'quantity'=>'0',
+                        'created_by'=>$user->id,
+                        'created_at'=> Carbon::now(),
+                    ]
+                    );
+        $notification = array(
+                        'message' => 'Product added Successfully', 
+                        'alert-type' => 'success'
+                    );
+        return redirect()->route('product.all')->with($notification);
+        }
+}  //end method 
 
 
         public function ProductEdit($id){
@@ -57,6 +62,11 @@ class ProductController extends Controller
         } //end method 
 
         public function ProductUpdate(Request $request){
+            $user = Auth::user();
+            if ($user === null) {
+            return view('/users/login')->with('message', 'You need to be logged in.');
+            }
+            else{
             $product_id =$request->id;
             Product::findOrFail($product_id)->update(
             [
@@ -64,18 +74,17 @@ class ProductController extends Controller
                 'supplier_id'=>$request->supplier_id,
                 'unit_id'=>$request->unit_id,
                 'category_id'=>$request->category_id,
-                'updated_by'=>Auth::user()->id, //should be modified
+                'updated_by'=>$user->id, 
                 'updated_at'=> Carbon::now(),
             ]
             );
-    
-     $notification = array(
-            'message' => 'Product updated Successfully', 
-            'alert-type' => 'success'
-        );
-                return redirect()->route('product.all')->with($notification);
-
-        }  //end method 
+            $notification = array(
+                'message' => 'Product updated Successfully', 
+                'alert-type' => 'success'
+            );
+                    return redirect()->route('product.all')->with($notification);
+        } 
+}  //end method 
     public function ProductDelete($id){
         Product::findOrFail($id)->delete();
         $notification = array(
