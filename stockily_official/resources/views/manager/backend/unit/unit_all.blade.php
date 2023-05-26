@@ -23,8 +23,8 @@
             <div class="card">
                 <div class="card-body">
                   <a href="{{route('unit.add')}}" class="btn btn-dark btn-rounded waves-effect waves-light" style="float: right; ">Add Location</a><br><br>
-
-                    <h4 class="card-title">Location Data</h4>
+                  <a href="{{route('sublocation.add')}}" class="btn btn-dark btn-rounded waves-effect waves-light" style="float: right; ">Add sublocation</a><br><br>
+                    <h4 class="card-title">sublocation Data</h4>
                     
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -32,6 +32,7 @@
                         <tr>
                             <th width="5%">ID</th>     {{-- serial number --}}
                             <th>Name</th>
+                            <th>sublocation</th>
                             <th width="20%" >Action</th>
                             
                         </thead>
@@ -47,7 +48,12 @@
                         <tr>
                             <td> {{ $key+1}} </td>
                             <td> {{ $item->name }} </td>
-              
+                            <td> @foreach ($sublocation as $key => $sub_loc)
+                                @if ($sub_loc->location_id==$item->id)
+                                <li>{{$sub_loc->name}}</li>
+                                @endif
+                                @endforeach
+                            </td>
                             <td>
     <!--buttons !-->
     <a href="{{route('unit.display',$item->id)}}" class="btn btn-success sm" title="display Data" id="display">  <i class="fas fa-clipboard"></i> </a>

@@ -29,7 +29,10 @@
                                                 <input type="radio" name="supplier_product_wise" value="product_wise" class="search_value">
                                             </div>
                                         </div>
-
+                                        <?php 
+                                        use Illuminate\Support\Facades\Auth;
+                                        $user_id=Auth::user()->id;
+                                        ?>
                                         <!-- Supplier Wise -->
                                         <div class="show_supplier" style="display: none">
                                             <form method="get" action="{{ route('supplier.wise.pdf') }}" id="myForm" target="_blank">
@@ -39,7 +42,9 @@
                                                         <select name="supplier_id" class="form-select select2" aria-label="Default select example">
                                                             <option value="">Select Supplier</option>
                                                             @foreach($suppliers as $supplier)
+                                                            @if ($supplier->created_by==$user_id)
                                                             <option value="{{$supplier->id}}">{{$supplier->name}}</option>
+                                                            @endif
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -61,7 +66,9 @@
                                                         <select name="category_id" id="category_id" class="form-select select2" aria-label="Default select example">
                                                             <option selected="">Open this select menu</option>
                                                             @foreach($categories as $category)
+                                                            @if ($category->created_by==$user_id)
                                                             <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                            @endif
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -72,7 +79,7 @@
                                                     <div class="md-3">
                                                         <label for="example-text-input" class="form-label">Product Name </label>
                                                         <select name="product_id" id="product_id" class="form-select select2" aria-label="Default select example">
-                                                            <option selected="">Open this select menu</opti    on>
+                                                            <option selected="">Open this select menu</option>
 
                                                         </select>
                                                     </div>

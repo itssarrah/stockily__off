@@ -35,7 +35,7 @@
                             <th>Supplier Name</th>
                             <th>Unit </th>
                             <th>Category </th>
-      
+                            <th>status </th>
                             <th>Action</th>
                             
                         </thead>
@@ -53,7 +53,7 @@
                             <td> {{ $item['supplier']['name']}} </td>
                             <td> {{ $item['unit']['name'] }} </td>
                             <td> {{ $item['category']['name'] }} </td>
-  
+                            <td> {{ $item['status']}} </td>
                             <td>
    <a href="{{route('product.edit',$item->id)}}" class="btn btn-info sm" title="Edit Data">  <i class="fas fa-edit"></i> </a>
 

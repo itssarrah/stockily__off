@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Inventory;
-
-
 use App\Models\Unit;
 use App\Models\Product;
 use App\Models\sublocation;
@@ -11,41 +9,45 @@ use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class UnitController extends Controller
+class SublocationController extends Controller
 {
-    public function UnitAll(){
-        $units= Unit::all();
+    public function sublocation_all(){
         $sublocation= sublocation::all();
-        return view('manager.backend.unit.unit_all',compact('units','sublocation'));
+        $units=Unit::all();
+        return view('manager.backend.unit.sublocations',compact('units','sublocation'));
     } //end method 
 
-    public function UnitAdd(){
-         return view('manager.backend.unit.unit_add');
+    public function sublocation_add(){
+        $unit=Unit::all();
+        return view('manager.backend.unit.sublocation_add',compact('unit'));
     }
 
-    public function UnitStore(Request $request){
+    public function sublocation_store(Request $request){
     $user = Auth::user();
     if ($user === null) {
     return view('/users/login')->with('message', 'You need to be logged in.');
     }
     else{
-    Unit::insert(
-        [
-            'name'=>$request->name,
-            'created_by'=>$user->id,  //i think this one will be modified(it means in that column we will store the current user id on it) 
-            'created_at'=> Carbon::now(), //insert the current time 
-        ]);
+        sublocation::insert(
+            [
+                'name'=>$request->name,
+                'location_id'=>$request->unit_id,
+                'created_by'=>$user->id,
+                'created_at'=> Carbon::now(),
+            ]
+            );
         $notification = array(
-            'message' => 'location added Successfully', 
-            'alert-type' => 'success'
-        );
+                'message' => 'sublocation added Successfully', 
+                'alert-type' => 'success'
+            );
                 return redirect()->route('unit.all')->with($notification);
     }
 }  //end method 
 
-    public function UnitEdit($id){
-        $unit=Unit::findOrFail($id); //get the requested id 
-        return view('manager.backend.unit.unit_edit',compact('unit'));
+    /*public function sublocation_edit($id){
+        $unit=Unit::findOrFail($id);
+        $sub_location=sublocation::findOrFail($id); //get the requested id 
+        return view('manager.backend.unit.sublocaton_edit',compact('unit'));
     } //end method 
 
     public function UnitUpdate(Request $request){
@@ -55,7 +57,7 @@ class UnitController extends Controller
     }
     else{
         $unit_id=$request->id; //get the  id
-        Unit::findOrFail($unit_id)->update(
+        sublocation::findOrFail($unit_id)->update(
         [
             'name'=>$request->name,
             'updated_by'=>$user->id,  //i think this one will be modified(it means in that column we will store the current user id on it) 
@@ -70,7 +72,7 @@ class UnitController extends Controller
     }//end method 
 
       public function UnitDelete($id){
-        Unit::findOrFail($id)->delete();
+        sublocation::findOrFail($id)->delete();
     
     $notification = array(
             'message' => 'location deleted Successfully', 
@@ -78,6 +80,7 @@ class UnitController extends Controller
         );
                 return redirect()->route('unit.all')->with($notification);
     }
+    //products --> this part to be modified 
     public function displayProducts($id)
     {
         $unit=Unit::findOrFail($id);
@@ -90,5 +93,5 @@ class UnitController extends Controller
         echo $product->name . ' - ' .'<br>';
     }
         return view('manager.backend.unit.unit_display',compact('unit'));
-    }
+    }*/
 }

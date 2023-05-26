@@ -13,6 +13,7 @@ use App\Http\Controllers\Inventory\PurchaseController;
 use App\Http\Controllers\Inventory\DefaultController;
 use App\Http\Controllers\Inventory\InvoiceController;
 use App\Http\Controllers\Inventory\StockController;
+use App\Http\Controllers\Inventory\SublocationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -76,7 +77,7 @@ Route::get('/manager/inprocess_page',function(){
     return view('/manager/inprocess_page');
 });
 //company info
-Route::post('/manager', [CompanyController::class, 'store']);
+Route::post('/manager', [CompanyController::class, 'store'])->name('company');
 Route::get('/manager/continue_manager',[CompanyController::class,'create']);
 
 //for sending email 
@@ -140,6 +141,11 @@ Route::controller(UnitController::class)->group(function () {
     Route::post('/unit/update', 'UnitUpdate')->name('unit.update');
     Route::get('/unit/delete/{id}', 'UnitDelete')->name('unit.delete');
     Route::get('/unit/display/{unit}', 'displayProducts')->name('unit.display');
+});
+Route::controller(SublocationController::class)->group(function () {
+    Route::get('/sublocation/all', 'UnitAll')->name('sublocation.all');
+    Route::get('/sublocation/add', 'sublocation_add')->name('sublocation.add');
+    Route::post('/sublocation/store', 'sublocation_store')->name('sublocation.store');
 });
 
 

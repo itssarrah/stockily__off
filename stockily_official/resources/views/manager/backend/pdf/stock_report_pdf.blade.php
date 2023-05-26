@@ -89,8 +89,13 @@
                                                                 @php
                                                                 $totalSum = 0;
                                                                 @endphp
-
+                <?php 
+                use Illuminate\Support\Facades\Auth;
+                $user_id=Auth::user()->id;
+                ?>
                                                                 @foreach($allData as $key => $item)
+                                                                @if ($item->created_by==$user_id)
+                                                                    
                                                                 @php
                                                                 $buying_total = App\Models\Purchase::where('category_id', $item->category_id)->where('product_id', $item->id)->where('status', 1)->sum('buying_qty');
                                                                 $selling_total = App\Models\InvoiceDetail::where('category_id', $item->category_id)->where('product_id', $item->id)->where('status', 1)->sum('selling_qty');
@@ -105,6 +110,7 @@
                                                                     <td>{{ $selling_total }}</td>
                                                                     <td>{{ $item->quantity }}</td>
                                                                 </tr>
+                                                                @endif
                                                                 @endforeach
                                                                 
                                                                 </tbody>
