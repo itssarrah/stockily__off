@@ -18,14 +18,23 @@ class CompanyController extends Controller
 {
     $formFields = $request->validate([
         'company_name' => 'required|string|unique:companies',
-        'company_logo' => 'nullable|image|mimes:jpeg,png|max:2048',
+        'company_logo' => 'nullable|string',
         'company_description' => 'required|nullable|string|min:10',
     ]);
+
+    // Get the image file from the request
+    $image = $request->file('company_logo');
+
+    // Generate a unique filename for the image
+    $filename = md5($image->getClientOriginalName() . time()) . '.' . $image->getClientOriginalExtension();
+
+    // Move the image to the `public/uploads` directory
+    $image->move(public_path('uploads'), $filename);
 
     // Create a new Company instance
     $company = new Company();
     $company->company = $formFields['company_name'];
-    // $company->image = $imageUrl;
+    $company->image = $filename;
     $company->desc = $formFields['company_description'];
 
     // Save the Company instance to the database
@@ -35,6 +44,7 @@ class CompanyController extends Controller
         return redirect('/manager/continue_manager')->with('message', 'Company name already exists');
     }
 }
+
     //to login 
     public function login() {
         return view('users.login');

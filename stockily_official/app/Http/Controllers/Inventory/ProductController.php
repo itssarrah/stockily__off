@@ -40,6 +40,7 @@ class ProductController extends Controller
                         'unit_id'=>$request->unit_id,
                         'category_id'=>$request->category_id,
                         'quantity'=>'0',
+                        'status'=>$request->status,
                         'created_by'=>$user->id,
                         'created_at'=> Carbon::now(),
                     ]
@@ -71,6 +72,7 @@ class ProductController extends Controller
             Product::findOrFail($product_id)->update(
             [
                 'name'=>$request->name,
+                'status'=>$request->status,
                 'supplier_id'=>$request->supplier_id,
                 'unit_id'=>$request->unit_id,
                 'category_id'=>$request->category_id,

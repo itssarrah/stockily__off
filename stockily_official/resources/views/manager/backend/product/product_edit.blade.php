@@ -26,6 +26,12 @@
                     <input name="name" class="form-control" value="{{$product->name}}" type="text" >
                 </div>
             </div>
+            <div class="row mb-3">
+              <label for="example-text-input" class="col-sm-2 col-form-label">Product status</label>
+              <div class="form-group col-sm-10">
+                  <input name="status" class="form-control" value="{{$product->status}}" type="text" >
+              </div>
+          </div>
             <!-- end row -->
 
 

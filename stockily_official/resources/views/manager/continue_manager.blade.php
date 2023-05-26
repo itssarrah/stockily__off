@@ -20,7 +20,7 @@
 <body>
     <div class="left">
     <h1 class="txt">Sign Up as <span>a Manager</span></h1>
-    <form  method="post" action="{{route("add_role")}}" >
+    <form  method="post" action="{{route("company")}}" >
     <div class="left__form">
             @csrf
         <div class="input__container">

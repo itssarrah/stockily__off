@@ -13,6 +13,10 @@
             <h4 class="card-title">Add Product Page </h4><br><br>
             
 
+            <?php 
+            use Illuminate\Support\Facades\Auth;
+            $user_id=Auth::user()->id;
+            ?>
       
 
 
@@ -23,6 +27,12 @@
                 <label for="example-text-input" class="col-sm-2 col-form-label">Product name</label>
                 <div class="form-group col-sm-10">
                     <input name="name" class="form-control" type="text" >
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="example-text-input" class="col-sm-2 col-form-label">Product status</label>
+                <div class="form-group col-sm-10">
+                    <input name="status" class="form-control" type="text" >
                 </div>
             </div>
             <!-- end row -->
@@ -36,8 +46,12 @@
                     Select the supplier 
                   </option>
                     @foreach($supplier as $supp)
-                  <option value="{{$supp->id}}">{{$supp->name}}</option>
-                  @endforeach
+                    @if ($supp->created_by==$user_id)
+                    <option value="{{$supp->id}}">{{$supp->name}}</option>
+                    @endif
+                    @endforeach
+                    
+                  
                   
                 </select>
               </div>
@@ -53,7 +67,9 @@
                     Select the location 
                   </option>
                     @foreach($unit as $uni)
+                    @if ($uni->created_by==$user_id)
                   <option value="{{$uni->id}}">{{$uni->name}}</option>
+                  @endif
                   @endforeach
                   
                 </select>
@@ -70,7 +86,9 @@
                     Select the category 
                   </option>
                     @foreach($category as $cat)
+                    @if ($cat->created_by==$user_id)
                   <option value="{{$cat->id}}">{{$cat->name}}</option>
+                  @endif
                   @endforeach
                   
                 </select>
