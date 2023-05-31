@@ -1,0 +1,205 @@
+.profile__name {
+    font-family: "Outfit";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 58px;
+    line-height: 73px;
+    /* identical to box height */
+
+    color: rgba(0, 0, 0, 0.4);
+}
+
+.profile__img {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    background-color: gray;
+}
+
+.dot--2 {
+    width: 110px;
+    position: absolute;
+    left: 35%;
+    top: 10%;
+}
+
+.dot--1 {
+    width: 140px;
+    position: absolute;
+    top: 10%;
+}
+
+.wavie {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 600px;
+}
+
+.bluish {
+    margin-top: 15px;
+    color: #000000;
+    background-color: rgba(145, 179, 250, 0.6);
+    border-color: rgba(145, 174, 238, 0.6);
+}
+
+.main__comp {
+    margin-top: 40px;
+    margin-bottom: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+.wrapp {
+    width: 100%;
+    position: relative;
+}
+
+.company__name {
+    font-family: "Outfit";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 50px;
+    line-height: 63px;
+    /* identical to box height */
+
+    color: #000000;
+}
+
+.backdrop {
+    width: 550px;
+}
+
+.profile__company {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.backdrop {
+    position: absolute;
+    top: 0;
+    z-index: -1;
+}
+
+.info__comp {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.sec__about {
+    width: 35%;
+    padding: 25px;
+    background: rgba(145, 179, 250, 0.6);
+    border-radius: 30px;
+}
+
+.sec__about h1 {
+    font-family: "Outfit";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 38px;
+    /* identical to box height */
+
+    color: #000000;
+}
+
+.sec__about p {
+    font-family: "Outfit";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 33px;
+
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.employee {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.employee__img {
+    border-radius: 50%;
+    background-color: gray;
+    width: 100px;
+    height: 100px;
+}
+
+.employees {
+    display: flex;
+    gap: 18px;
+}
+
+.employee__name {
+    font-family: "Outfit";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 32px;
+
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.employee__role {
+    font-family: "Outfit";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 32px;
+
+    color: #000000;
+}
+
+.sec__employee h1 {
+    font-family: "Outfit";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 38px;
+    /* identical to box height */
+
+    color: #000000;
+}
+
+@media screen and (max-width: 600px) {
+    .wavie {
+        display: none;
+    }
+    .dot--1 {
+        width: 80px;
+    }
+    .dot--2 {
+        display: none;
+    }
+    .profile__name {
+        font-size: 38px;
+        line-height: 63px;
+    }
+    .backdrop {
+        width: 100vw;
+    }
+    .company__name {
+        font-size: 38px;
+        line-height: 43px;
+        /* identical to box height */
+
+        color: #000000;
+    }
+    .info__comp {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+    }
+    .sec__about {
+        width: 100%;
+    }
+}
