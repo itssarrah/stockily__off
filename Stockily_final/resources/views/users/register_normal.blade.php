@@ -25,7 +25,7 @@
     </section>
     <!-- Content of the register.blade.php file goes here -->
      <section class="sec__right">
-    <form  method="POST" action="/users">
+    <form  method="POST" action="/normalusers">
         @csrf
         <h1 class="right__title">Welcome to the virtual <span>Warehouse Manager</span></h1>
         <!--added by nesrine!-->
@@ -50,7 +50,7 @@
                 <input class="input__field" type="email" placeholder="abcdefg@example.dz" name="email"
                 value="{{old('email')}}"/>
                 @error('email')
-                    <P class="text-yellow-500 text-xs mt-1">{{$message}}</P>
+                    <P class="text-red-500 text-xs mt-1">{{$message}}</P>
                 @enderror
                 </div>
                 

@@ -43,8 +43,9 @@ public function createNormal(Request $request)
         return redirect()->route('home')->with('error', 'Token has expired. Please request a new invitation to your manager.');
     }
 
+    $email = $managerEmployee->email;
     // If the token is valid and not expired, pass the necessary data to the view
-    return view('users.register_normal', ['token' => $urlToken]);
+    return view('users.register_normal', ['token' => $urlToken, 'email' => $email]);
 }
 
 
@@ -127,6 +128,34 @@ public function updatePassword(Request $request) {
     }
 }
 
+
+public function storeUser(Request $request){
+    $formFields = $request->validate([
+        'name' => ['required', 'min:3'],
+        'email' => [
+            'required',
+            'email',
+            Rule::exists('managers_employees', 'email')->where(function ($query) use ($request) {
+                $query->where('token', $request->query('token'));
+            }),
+            Rule::unique('users', 'email')
+        ],
+        'password' => 'required|confirmed|min:8',
+    ], [
+        'email.exists' => 'Please Sign Up with The E-mail you received the invitation with.',
+    ]);
+
+    // Hash Password
+    $formFields['password'] = Hash::make($formFields['password']);
+
+    // Create User
+    $user = User::create($formFields);
+
+    // Log in the user
+    auth()->login($user);
+
+    return redirect('/users/dashboard');
+}
   // Logout User
     public function logout(Request $request) {
         auth()->logout();
