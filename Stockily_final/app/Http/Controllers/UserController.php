@@ -23,10 +23,10 @@ public function create(){
 
 public function createNormal(Request $request)
 {
-    $urlToken = $request->query('token');
+    $token = $request->query('token');
 
     // Find the record in the managers_employees table based on the token
-    $managerEmployee = ManagersEmployees::where('token', $urlToken)->first();
+    $managerEmployee = ManagersEmployees::where('token', $token)->first();
 
     if (!$managerEmployee) {
         $notification = array(
@@ -45,7 +45,7 @@ public function createNormal(Request $request)
 
     $email = $managerEmployee->email;
     // If the token is valid and not expired, pass the necessary data to the view
-    return view('users.register_normal', ['token' => $urlToken, 'email' => $email]);
+    return view('users.register_normal', ['token' => $token, 'email' => $email]);
 }
 
 
@@ -129,20 +129,34 @@ public function updatePassword(Request $request) {
 }
 
 
-public function storeUser(Request $request){
+public function storeUser(Request $request)
+{
+    $token = $request->input('token');
+
+    if (!$token) {
+        abort(404, 'Token not found.');
+    }
+
+    $invitation = ManagersEmployees::where('token', $token)->first();
+
+    if (!$invitation) {
+        abort(404, 'Invitation not found.');
+    }
+
     $formFields = $request->validate([
         'name' => ['required', 'min:3'],
         'email' => [
             'required',
             'email',
-            Rule::exists('managers_employees', 'email')->where(function ($query) use ($request) {
-                $query->where('token', $request->query('token'));
-            }),
+            function ($attribute, $value, $fail) use ($invitation) {
+                if (strtolower($value) !== strtolower($invitation->email)) {
+                    $fail('Please sign up with the email you received the invitation with.');
+                }
+            },
             Rule::unique('users', 'email')
         ],
         'password' => 'required|confirmed|min:8',
-    ], [
-        'email.exists' => 'Please Sign Up with The E-mail you received the invitation with.',
+        'role' => 'required|string',
     ]);
 
     // Hash Password
@@ -156,6 +170,8 @@ public function storeUser(Request $request){
 
     return redirect('/users/dashboard');
 }
+
+
   // Logout User
     public function logout(Request $request) {
         auth()->logout();

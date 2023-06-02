@@ -25,11 +25,12 @@
     </section>
     <!-- Content of the register.blade.php file goes here -->
      <section class="sec__right">
-    <form  method="POST" action="/normalusers">
+    <form  method="POST" action="{{ route('normal.users') }}">
         @csrf
         <h1 class="right__title">Welcome to the virtual <span>Warehouse Manager</span></h1>
-        <!--added by nesrine!-->
         
+        @csrf
+         <input type="hidden" name="token" value="{{ $token }}">
         <div class="right__form">
             <!--user name add icon !-->
             <div class="input__container">
